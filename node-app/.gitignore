@@ -1,0 +1,2 @@
+dist
+# We dont add dist folder in gitignore
