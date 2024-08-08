@@ -141,4 +141,66 @@ const user3: User = {
 const userList: User[] = [user1, user2, user3];
 
 const filteredUserList = userList.filter((user) => user.age >= 18);
-console.log(filteredUserList);
+// console.log(filteredUserList);
+
+// Enum
+
+enum Direction {
+  Up = 'up',
+  Down = 'down',
+  Left = 'left',
+  Right = 'right',
+}
+// enum Direction {
+// If nothing passed it assume as 0,1,2,3
+// If we assigned numeric value to 1st all get assigned according to seqn
+//   Up,
+//   Down,
+//   Left,
+//   Right,
+// }
+
+function doSomething(keyPressed: Direction): void {
+  if (keyPressed === Direction.Up) {
+    // do something
+  }
+  // ...
+}
+
+doSomething(Direction.Up);
+doSomething(Direction.Down);
+// console.log(Direction);
+
+// Generics - Most interesting and Hard concepts
+
+// PS: Write a fn which takes number or string as an array and return 1st index value
+type Input = number | string;
+
+function firstElement(arr: Input[]) {
+  return arr[0];
+}
+
+// First Problem with this approach that user can pass mixed value which can be solved by this
+// function maxElement(arr: number[] | string[]){
+//   return arr[0]
+// }
+// const value = maxElement(["Durgesh",1,2])
+
+// Second problem is that since we are passing strings as a array so ts should understand and return string but it is not it returns as Input so toUpperCase will not work
+// const value = maxElement(["Durgesh","Dubey"])
+// console.log(value.toUpperCase());
+
+// Solution - Use generics
+// Generics help us to create a variation of fn or we can say it understands type during compile time
+// This will solve our problem
+// <T> means generic it refers to as "any" type for now, we can use complex type also like types or Interfaces
+function firstEl<T>(arr: T[]): T {
+  return arr[0];
+}
+
+// const strArray: string[] = ['Durgesh', 'Dubey'];
+// const numArray: number[] = [1, 2, 4];
+// while calling we can mention type also but ts inferred that but to avoid mixed values we can give it
+// firstEL<string>(["Durgesh",21,3]) This will give error
+console.log(firstEl(['Durgesh', 'Dubey']).toUpperCase());
+console.log(firstEl([1, 2, 4]));
